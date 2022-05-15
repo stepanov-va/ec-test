@@ -1,0 +1,44 @@
+version: '3.9'
+services:
+  nginx:
+    build:
+      context: ./docker
+      dockerfile: nginx.docker
+    volumes:
+      - ./:/app
+    depends_on:
+      - php-fpm
+    ports:
+      - "8080:80"
+  php-fpm:
+    build:
+      context: ./docker
+      dockerfile: php-fpm.docker
+    volumes:
+      - ./:/app
+    depends_on:
+      - mysql
+  php-cli:
+    build:
+      context: ./docker
+      dockerfile: php-cli.docker
+    volumes:
+      - ./:/app
+      - composer:/root/.composer/cache
+    depends_on:
+      - mysql
+  mysql:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_USER: app
+      MYSQL_PASSWORD: app
+      MYSQL_ROOT_PASSWORD: app
+      MYSQL_DATABASE: app
+    ports:
+      - "33067:3306"
+    volumes:
+      - ./var/mysqldb:/var/lib/mysql
+volumes:
+  mysql:
+  composer:
