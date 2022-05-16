@@ -1,5 +1,6 @@
 up: docker-up
 down: docker-down
+init: docker-up composer-install migrations fixtures
 restart: docker-down docker-up
 
 docker-up:
