@@ -7,6 +7,8 @@ RUN apk add --no-cache libpq-dev unzip git \
     && docker-php-ext-configure xdebug --enable-xdebug-dev \
     && docker-php-ext-install xdebug
 
+RUN docker-php-ext-install pdo_mysql
+
 COPY ./php/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/bin --filename=composer --quiet

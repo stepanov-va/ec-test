@@ -1,6 +1,8 @@
 <?php
 
-class HttpMicroservice
-{
+namespace App\Http;
 
+class HttpMicroservice extends AbstractMicroservice
+{
+    protected const NAME = 'http';
 }
